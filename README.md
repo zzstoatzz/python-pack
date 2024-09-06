@@ -2,7 +2,10 @@
 here you go!
 
 ```
+gh repo clone zzstoatzz/python-pack
+cd python-pack
 make clean
-make install
-make test
+make dev
+source .venv/bin/activate
+pytest
 ```

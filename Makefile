@@ -47,11 +47,11 @@ dev: $(VENV_DIR) $(DEV_REQUIREMENTS)
 	@echo "ᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖ"
 
 install: $(VENV_DIR) $(REQUIREMENTS)
-	$(UV) build
-	$(UV) pip install dist/*.whl
+	uv build
+	uv pip install dist/*.whl
 
 publish: install
-	$(UV)x twine upload dist/*
+	uvx twine upload dist/*
 
 clean:
 	rm -rf .bookkeeping/ $(VENV_DIR) $(REQUIREMENTS) $(DEV_REQUIREMENTS) dist/
