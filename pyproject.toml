@@ -1,0 +1,44 @@
+[project]
+name = "python-pack"
+dynamic = ["version"]
+description = "A modern Python project template"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = ["pydantic", "rich", "uv"]
+
+[project.optional-dependencies]
+
+tests = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-env",
+    "pytest-rerunfailures",
+    "pytest-sugar",
+    "pytest-timeout",
+    "pytest-xdist",
+]
+
+dev = ["ruff", "pre-commit", "python-pack[tests]"]
+
+
+[tool.setuptools_scm]
+write_to = "src/python_pack/_version.py"
+
+# pytest configuration
+[tool.pytest.ini_options]
+asyncio_mode = 'auto'
+asyncio_default_fixture_loop_scope = 'session'
+timeout = 20
+testpaths = ["tests"]
+norecursedirs = [
+    "*.egg-info",
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".vscode",
+    "node_modules",
+]
+env = []
+markers = []

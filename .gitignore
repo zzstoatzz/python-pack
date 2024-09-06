@@ -1,0 +1,60 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+sdist/
+
+# Test artifacts
+.benchmarks/
+.coverage
+.coverage.*.*
+.pytest_cache/
+
+# Type checking artifacts
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# IPython
+profile_default/
+ipython_config.py
+*.ipynb_checkpoints/*
+
+# Profiling
+/prof
+
+# Environments
+.python-version
+.env
+.venv
+env/
+venv/
+
+site/
+.cache/
+**/node_modules
+
+# Databases
+*.db
+
+# Editors
+.idea/
+.vscode/
+**/.vscode/
+
+# MacOS
+.DS_Store
+libcairo.2.dylib
+
+# setuptools-scm generated files
+src/**/_version.py
+*.log
+
+# specific to this project
+.bookkeeping/
+python_pack.egg-info/
