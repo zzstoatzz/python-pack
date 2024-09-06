@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := install
-.PHONY: all install clean test dev publish
+.PHONY: all install clean test dev publish example
 
 UV := $(shell which uv)
 UV_VERSION := $(shell $(UV) --version | cut -d ' ' -f 2)
@@ -28,17 +28,17 @@ all: install test
 	fi
 
 $(VENV_DIR): .bookkeeping/uv-$(UV_VERSION)
-	$(UV) venv $(VENV_DIR)
+	uv venv $(VENV_DIR)
 
 $(REQUIREMENTS): pyproject.toml
-	$(UV) pip compile pyproject.toml -o $(REQUIREMENTS)
+	uv pip compile pyproject.toml -o $(REQUIREMENTS)
 
 $(DEV_REQUIREMENTS): pyproject.toml
-	$(UV) pip compile --extra dev pyproject.toml -o $(DEV_REQUIREMENTS)
+	uv pip compile --extra dev pyproject.toml -o $(DEV_REQUIREMENTS)
 
 dev: $(VENV_DIR) $(DEV_REQUIREMENTS)
-	$(UV) pip sync $(DEV_REQUIREMENTS)
-	$(UV) pip install -e .[dev]
+	uv pip sync $(DEV_REQUIREMENTS)
+	uv pip install -e .[dev]
 	@echo "ᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖ"
 	@echo "Virtual environment is ready."
 	@echo ""
@@ -57,4 +57,16 @@ clean:
 	rm -rf .bookkeeping/ $(VENV_DIR) $(REQUIREMENTS) $(DEV_REQUIREMENTS) dist/
 
 test:
-	$(VENV_DIR)/bin/python -m pytest
+	uv run pytest
+
+example:
+	@if [ -z "$$OPENAI_API_KEY" ]; then \
+		echo "ᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖ"; \
+		echo "Error: OPENAI_API_KEY is not set!"; \
+		echo "Please set your OpenAI API key to run this example."; \
+		echo "You can do this by running:"; \
+		echo "export OPENAI_API_KEY='your-api-key-here'"; \
+		echo "ᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖᨖ"; \
+		exit 1; \
+	fi
+	uv run examples/todo/todo_app.py
